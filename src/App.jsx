@@ -1,4 +1,5 @@
 import React from 'react'
+import TodoList from './components/TodoList'
 
 function App() {
   return (
@@ -6,10 +7,4 @@ function App() {
   )
 }
 
-export default Todo
-
-const TodoList = () => {
-  return(
-    <div></div>
-  )
-}
+export default App
