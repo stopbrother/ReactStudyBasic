@@ -12,20 +12,35 @@ import React, { useState } from "react";
 //   { id: 9, text: "Do laundry" },
 //   { id: 10, text: "Write code" },
 // ];
-const [todos, setTodos] = useState([]);
-const [newTodo, setNewTodo] = useState("");
+// const [todos, setTodos] = useState([]);
+// const [newTodo, setNewTodo] = useState("");
 
 function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!newTodo.trim()) return;
 
-    setTodos([...todos, { id: crypto.randomUUID, text: newTodo }]);
+    setTodos([
+      ...todos,
+      { id: crypto.randomUUID(), text: newTodo, completed: false },
+    ]);
     setNewTodo("");
   };
   const handleChangeInput = (e) => {
     setNewTodo(e.target.value);
+  };
+
+  const handleUpdate = (id) => {
+    const updateTodos = todos.map((todo) => {
+      if (id === todo.id) return { ...todo, completed: !todo.completed };
+      else todo;
+    });
+    setTodos(updateTodos);
+    console.table(updateTodos);
   };
 
   return (
@@ -35,7 +50,12 @@ function TodoList() {
       </form>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.text}</li>
+          <li key={todo.id}>
+            {todo.text}
+            <button onClick={() => handleUpdate(todo.id)}>
+              {/* {todo.completed} */}클릭
+            </button>
+          </li>
         ))}
       </ul>
     </>
