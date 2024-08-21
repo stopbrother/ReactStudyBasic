@@ -43,18 +43,24 @@ function TodoList() {
     console.table(updateTodos);
   };
 
+  const handleDelete = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
         <input type="text" value={newTodo} onChange={handleChangeInput} />
+        <button onClick={handleSubmit}>등록</button>
       </form>
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
             {todo.text}
             <button onClick={() => handleUpdate(todo.id)}>
-              {/* {todo.completed} */}클릭
+              {todo.completed ? <span> 완료 </span> : <span> 취소 </span>}
             </button>
+            <button onClick={() => handleDelete(todo.id)}>삭제</button>
           </li>
         ))}
       </ul>
