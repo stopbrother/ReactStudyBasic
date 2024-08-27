@@ -1,12 +1,12 @@
-import React from 'react'
-import TodoList from './components/TodoList'
+import TodoContainer from "./components/TodoContainer";
+import Layout from "./components/layout/Layout";
 
 function App() {
   return (
-    <main>
-      <TodoList />
-    </main>
-  )
+    <Layout>
+      <TodoContainer />
+    </Layout>
+  );
 }
 
-export default App
+export default App;
