@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import TodoItem from "./TodoItem";
 
 // const todos = [
 //   { id: 1, text: "Buy milk" },
@@ -12,59 +12,19 @@ import React, { useState } from "react";
 //   { id: 9, text: "Do laundry" },
 //   { id: 10, text: "Write code" },
 // ];
-// const [todos, setTodos] = useState([]);
-// const [newTodo, setNewTodo] = useState("");
 
-function TodoList() {
-  const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!newTodo.trim()) return;
-
-    setTodos([
-      ...todos,
-      { id: crypto.randomUUID(), text: newTodo, completed: false },
-    ]);
-    setNewTodo("");
-  };
-  const handleChangeInput = (e) => {
-    setNewTodo(e.target.value);
-  };
-
-  const handleUpdate = (id) => {
-    const updateTodos = todos.map((todo) => {
-      if (id === todo.id) return { ...todo, completed: !todo.completed };
-      else todo;
-    });
-    setTodos(updateTodos);
-    console.table(updateTodos);
-  };
-
-  const handleDelete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
+function TodoList({ handleUpdate, handleDelete, todos }) {
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={newTodo} onChange={handleChangeInput} />
-        <button onClick={handleSubmit}>등록</button>
-      </form>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            {todo.text}
-            <button onClick={() => handleUpdate(todo.id)}>
-              {todo.completed ? <span> 완료 </span> : <span> 취소 </span>}
-            </button>
-            <button onClick={() => handleDelete(todo.id)}>삭제</button>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul>
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          handleUpdate={() => handleUpdate(todo.id)}
+          handleDelete={() => handleDelete(todo.id)}
+        />
+      ))}
+    </ul>
   );
 }
 
