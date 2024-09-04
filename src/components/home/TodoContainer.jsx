@@ -1,13 +1,12 @@
+import { Link } from "react-router-dom";
 import TodoForm from "./TodoForm";
-import TodoList from "./TodoList";
-
-// export const TodoContext = createContext();
 
 function TodoContainer() {
   return (
     <>
+      안녕하세요.
       <TodoForm />
-      <TodoList />
+      <Link to={"/detail"}>디테일페이지</Link>
     </>
   );
 }

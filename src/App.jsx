@@ -1,13 +1,11 @@
-import TodoContainer, { TodoContext } from "./components/TodoContainer";
-import Layout from "./components/layout/Layout";
+import { TodoProvider } from "./context/TodoContext";
+import Router from "./shared/Router";
 
 function App() {
   return (
-    <Layout>
-      <TodoContext.Provider>
-        <TodoContainer />
-      </TodoContext.Provider>
-    </Layout>
+    <TodoProvider>
+      <Router />
+    </TodoProvider>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import TodoContext from "../context/TodoContext";
+import { TodoContext } from "../../context/TodoContext";
 
 function TodoItem({ todo }) {
   const { handleUpdate, handleDelete } = useContext(TodoContext);

@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import TodoItem from "./TodoItem";
-import TodoContext from "../context/TodoContext";
+import TodoItem from "../detail/TodoItem";
+import { TodoContext } from "../../context/TodoContext";
 
 // const todos = [
 //   { id: 1, text: "Buy milk" },
