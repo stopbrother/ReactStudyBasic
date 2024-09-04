@@ -1,4 +1,6 @@
-import TodoItem from "./TodoItem";
+import { useContext } from "react";
+import TodoItem from "../detail/TodoItem";
+import { TodoContext } from "../../context/TodoContext";
 
 // const todos = [
 //   { id: 1, text: "Buy milk" },
@@ -13,16 +15,12 @@ import TodoItem from "./TodoItem";
 //   { id: 10, text: "Write code" },
 // ];
 
-function TodoList({ handleUpdate, handleDelete, todos }) {
+function TodoList() {
+  const { todos } = useContext(TodoContext);
   return (
     <ul>
       {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          handleUpdate={() => handleUpdate(todo.id)}
-          handleDelete={() => handleDelete(todo.id)}
-        />
+        <TodoItem key={todo.id} todo={todo} />
       ))}
     </ul>
   );

@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TodoContext } from "../../context/TodoContext";
 
-function TodoForm({ addTodos }) {
+function TodoForm() {
+  const { addTodos } = useContext(TodoContext);
   const [newTodo, setNewTodo] = useState("");
+  console.log("addTodos", addTodos);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +28,7 @@ function TodoForm({ addTodos }) {
   return (
     <form onSubmit={handleSubmit}>
       <input type="text" value={newTodo} onChange={handleChangeInput} />
-      <button onClick={handleSubmit}>등록</button>
+      <button>등록</button>
     </form>
   );
 }
