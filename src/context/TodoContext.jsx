@@ -20,9 +20,19 @@ export function TodoProvider({ children }) {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  const pendingTodos = todos.filter((todo) => !todo.completed);
+  const completedTodos = todos.filter((todo) => todo.completed);
+
   return (
     <TodoContext.Provider
-      value={{ addTodos, handleUpdate, handleDelete, todos }}
+      value={{
+        addTodos,
+        handleUpdate,
+        handleDelete,
+        todos,
+        pendingTodos,
+        completedTodos,
+      }}
     >
       {children}
     </TodoContext.Provider>
