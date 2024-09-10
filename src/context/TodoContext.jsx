@@ -13,7 +13,11 @@ export function TodoProvider({ children }) {
     setTodos(data);
   };
 
-  const addTodos = (newTodoObj) => setTodos([...todos, newTodoObj]);
+  const addTodos = async (newTodoObj) => {
+    await todoClient.post("/", newTodoObj);
+
+    fetchTodos();
+  };
 
   const handleUpdate = (id) => {
     const updateTodos = todos.map((todo) => {
