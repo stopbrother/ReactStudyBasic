@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import TodoItem from "../detail/TodoItem";
 import { TodoContext } from "../../context/TodoContext";
+import { useSearchParams } from "react-router-dom";
 
 // const todos = [
 //   { id: 1, text: "Buy milk" },
@@ -16,10 +17,23 @@ import { TodoContext } from "../../context/TodoContext";
 // ];
 
 function TodoList() {
-  const { todos } = useContext(TodoContext);
+  const { todos, pendingTodos, completedTodos } = useContext(TodoContext);
+  const [searchParams] = useSearchParams();
+  const paramView = searchParams.get("view");
+
+  const getFilteredTodos = () => {
+    if (paramView === "pending") {
+      return pendingTodos;
+    } else if (paramView === "completed") {
+      return completedTodos;
+    }
+    return todos;
+  };
+  const filteredTodos = getFilteredTodos();
+
   return (
     <ul>
-      {todos.map((todo) => (
+      {filteredTodos.map((todo) => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
     </ul>

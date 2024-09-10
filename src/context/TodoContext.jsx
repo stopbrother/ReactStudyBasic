@@ -1,28 +1,54 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { todoClient } from "../api/TodoClient";
+import { useNavigate } from "react-router-dom";
 
 export const TodoContext = createContext();
 
 export function TodoProvider({ children }) {
   const [todos, setTodos] = useState([]);
-  const addTodos = (newTodoObj) => setTodos([...todos, newTodoObj]);
+  const navigate = useNavigate();
 
-  const handleUpdate = (id) => {
-    const updateTodos = todos.map((todo) => {
-      if (id === todo.id) {
-        return { ...todo, completed: !todo.completed };
-      }
-      return todo;
-    });
-    setTodos(updateTodos);
+  const fetchTodos = async () => {
+    const { data } = todoClient.get("/");
+    setTodos(data);
   };
 
-  const handleDelete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const addTodos = async (newTodoObj) => {
+    await todoClient.post("/", newTodoObj);
+
+    fetchTodos();
   };
+
+  const handleUpdate = async (id, completed) => {
+    await todoClient.patch(`/${id}`, { completed });
+    fetchTodos();
+  };
+
+  const handleDelete = async (id) => {
+    await todoClient.delete(`/${id}`);
+
+    fetchTodos();
+    navigate("/");
+  };
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
+  const pendingTodos = todos.filter((todo) => !todo.completed);
+  const completedTodos = todos.filter((todo) => todo.completed);
 
   return (
     <TodoContext.Provider
-      value={{ addTodos, handleUpdate, handleDelete, todos }}
+      value={{
+        addTodos,
+        fetchTodos,
+        handleUpdate,
+        handleDelete,
+        todos,
+        pendingTodos,
+        completedTodos,
+      }}
     >
       {children}
     </TodoContext.Provider>

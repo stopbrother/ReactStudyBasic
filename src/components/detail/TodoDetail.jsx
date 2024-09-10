@@ -1,7 +1,5 @@
-import TodoList from "../home/TodoList";
-
 const TodoDetail = () => {
-  return <TodoList></TodoList>;
+  return <div>디테일</div>;
 };
 
 export default TodoDetail;
