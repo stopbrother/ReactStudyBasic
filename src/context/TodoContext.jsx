@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { todoClient } from "../api/TodoClient";
 import { useNavigate } from "react-router-dom";
 
@@ -29,6 +29,10 @@ export function TodoProvider({ children }) {
     setTodos(todos.filter((todo) => todo.id !== id));
     navigate("/");
   };
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   const pendingTodos = todos.filter((todo) => !todo.completed);
   const completedTodos = todos.filter((todo) => todo.completed);
