@@ -19,14 +19,9 @@ export function TodoProvider({ children }) {
     fetchTodos();
   };
 
-  const handleUpdate = (id) => {
-    const updateTodos = todos.map((todo) => {
-      if (id === todo.id) {
-        return { ...todo, completed: !todo.completed };
-      }
-      return todo;
-    });
-    setTodos(updateTodos);
+  const handleUpdate = async (id, completed) => {
+    await todoClient.patch(`/${id}`, { completed });
+    fetchTodos();
   };
 
   const handleDelete = (id) => {
