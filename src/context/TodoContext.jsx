@@ -1,9 +1,18 @@
 import { createContext, useState } from "react";
+import { todoClient } from "../api/TodoClient";
+import { useNavigate } from "react-router-dom";
 
 export const TodoContext = createContext();
 
 export function TodoProvider({ children }) {
   const [todos, setTodos] = useState([]);
+  const navigate = useNavigate();
+
+  const fetchTodos = async () => {
+    const { data } = todoClient.get("/");
+    setTodos(data);
+  };
+
   const addTodos = (newTodoObj) => setTodos([...todos, newTodoObj]);
 
   const handleUpdate = (id) => {
@@ -18,6 +27,7 @@ export function TodoProvider({ children }) {
 
   const handleDelete = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
+    navigate("/");
   };
 
   const pendingTodos = todos.filter((todo) => !todo.completed);
