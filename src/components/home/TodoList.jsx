@@ -1,6 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import TodoItem from "../detail/TodoItem";
 
-import { useSearchParams } from "react-router-dom";
+import { getTodos } from "../../api/TodoClient";
 
 // const todos = [
 //   { id: 1, text: "Buy milk" },
@@ -16,22 +17,19 @@ import { useSearchParams } from "react-router-dom";
 // ];
 
 function TodoList() {
-  const [searchParams] = useSearchParams();
-  const paramView = searchParams.get("view");
-
-  const getFilteredTodos = () => {
-    if (paramView === "pending") {
-      return pendingTodos;
-    } else if (paramView === "completed") {
-      return completedTodos;
-    }
-    return todos;
-  };
-  const filteredTodos = getFilteredTodos();
-
+  const { data, isPending, error } = useQuery({
+    queryKey: ["todos"],
+    queryFn: getTodos,
+  });
+  if (isPending) {
+    <div>로딩중</div>;
+  }
+  if (error) {
+    <div>Error: {error.message}</div>;
+  }
   return (
     <ul>
-      {filteredTodos.map((todo) => (
+      {data.map((todo) => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
     </ul>
