@@ -1,10 +1,7 @@
-import { useContext } from "react";
-import { TodoContext } from "../../context/TodoContext";
 import styled from "styled-components";
 import { Link, useSearchParams } from "react-router-dom";
 
 const TodoDashboard = () => {
-  const { todos, pendingTodos, completedTodos } = useContext(TodoContext);
   const [searchParams] = useSearchParams();
   const paramView = searchParams.get("view");
 

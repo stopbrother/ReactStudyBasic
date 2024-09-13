@@ -1,8 +1,4 @@
-import { useContext } from "react";
-import { TodoContext } from "../../context/TodoContext";
-
 function TodoItem({ todo }) {
-  const { handleUpdate, handleDelete } = useContext(TodoContext);
   return (
     <li key={todo.id}>
       {todo.text}

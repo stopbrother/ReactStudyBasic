@@ -1,6 +1,5 @@
-import { useContext } from "react";
 import TodoItem from "../detail/TodoItem";
-import { TodoContext } from "../../context/TodoContext";
+
 import { useSearchParams } from "react-router-dom";
 
 // const todos = [
@@ -17,7 +16,6 @@ import { useSearchParams } from "react-router-dom";
 // ];
 
 function TodoList() {
-  const { todos, pendingTodos, completedTodos } = useContext(TodoContext);
   const [searchParams] = useSearchParams();
   const paramView = searchParams.get("view");
 
