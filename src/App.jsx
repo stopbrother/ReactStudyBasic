@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TodoProvider } from "./context/TodoContext";
+
 import Router from "./shared/Router";
 
 const queryClient = new QueryClient();
