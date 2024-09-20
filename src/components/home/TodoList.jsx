@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import TodoItem from "../detail/TodoItem";
 
 import { getTodos } from "../../api/TodoClient";
+import { useSearchParams } from "react-router-dom";
 
 // const todos = [
 //   { id: 1, text: "Buy milk" },
@@ -17,16 +18,21 @@ import { getTodos } from "../../api/TodoClient";
 // ];
 
 function TodoList() {
+  const [searchParams] = useSearchParams();
+  const filter = searchParams.get("filter");
+
   const { data, isPending, error } = useQuery({
-    queryKey: ["todos"],
-    queryFn: getTodos,
+    queryKey: ["todos", filter],
+    queryFn: () => getTodos(filter),
   });
+
   if (isPending) {
     <div>로딩중</div>;
   }
   if (error) {
     <div>Error: {error.message}</div>;
   }
+
   return (
     <ul>
       {data.map((todo) => (
