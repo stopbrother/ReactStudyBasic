@@ -1,19 +1,9 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { postTodo } from "../../api/TodoClient";
+import { useCreateTodoMutaion } from "../../hooks/useTodoMutation";
 
 function TodoForm() {
   const [newTodo, setNewTodo] = useState("");
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation({
-    mutationFn: (todo) => postTodo(todo),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["todos"],
-      });
-    },
-  });
+  const { mutate } = useCreateTodoMutaion();
 
   const handleSubmit = (e) => {
     e.preventDefault();
