@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 function Layout() {
   return (
-    <main>
+    <main className="dark:bg-black">
       <Outlet />
     </main>
   );
