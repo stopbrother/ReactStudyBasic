@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTodoDetail, getTodos } from "../api/TodoClient";
+import { getTodoDetail, getTodos } from "../api/todoClient";
 import { useGetFilter } from "./useGetFilter";
 
 export const useTodoFilteredQuery = () => {

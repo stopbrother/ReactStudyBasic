@@ -1,15 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "../components/layout/Layout";
-import Home from "../pages/Home";
-import Detail from "../pages/Detail";
+
+import RootLayout from "../components/layout/RootLayout";
+import HomePage from "../page/HomePage";
+import TodoDetailPage from "../page/TodoDetailPage";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/detail" element={<Detail />} />
+        <Route path="/" element={<RootLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/:id" element={<TodoDetailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

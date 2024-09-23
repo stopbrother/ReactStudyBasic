@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTodo, postTodo, toggleTodo } from "../api/TodoClient";
+import { deleteTodo, postTodo, toggleTodo } from "../api/todoClient";
 
-export const useCreateTodoMutaion = () => {
-  const queryClinet = useQueryClient();
+export const useCreateTodoMutation = () => {
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (todo) => postTodo(todo),
     onSuccess: () => {
-      queryClinet.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: ["todos"],
       });
     },
@@ -15,12 +15,12 @@ export const useCreateTodoMutaion = () => {
 };
 
 export const useDeleteTodoMutation = () => {
-  const queryClinet = useQueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (id) => deleteTodo(id),
     onSuccess: () => {
-      queryClinet.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: ["todos"],
       });
     },
@@ -28,12 +28,12 @@ export const useDeleteTodoMutation = () => {
 };
 
 export const useToggleTodoMutation = () => {
-  const queryClinet = useQueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ id, completed }) => toggleTodo(id, completed),
     onSuccess: () => {
-      queryClinet.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: ["todos"],
       });
     },
